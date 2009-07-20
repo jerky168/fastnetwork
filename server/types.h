@@ -8,4 +8,4 @@ typedef boost::shared_ptr<fastnet::session_handler> session_handler_ptr;
 
 typedef boost::shared_ptr<boost::asio::ip::udp::socket> socket_ptr;
 
-typedef boost::shared_ptr<std::string> message_ptr;
+typedef boost::shared_ptr<std::string>	message_ptr;

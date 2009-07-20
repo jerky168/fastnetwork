@@ -22,5 +22,5 @@ public:
 	}
 
 private:
-	map<udp::endpoint, session_ptr> sessions_;
+	map<ip::udp::endpoint, session_ptr> sessions_;
 };
