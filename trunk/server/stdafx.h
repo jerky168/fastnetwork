@@ -24,7 +24,7 @@ using namespace std;
 using namespace boost;
 
 #include <boost/asio.hpp>
-using boost::asio::ip::udp;
+using namespace boost::asio;
 
 #include <fastnet.h>
 

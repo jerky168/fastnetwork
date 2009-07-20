@@ -10,6 +10,8 @@ namespace fastnet {
 
 	public:
 		virtual void start() = 0;
+		virtual void bind( boost::asio::ip::udp::endpoint endpoint ) = 0;
 		virtual void set_handler( boost::function<void( boost::shared_ptr<io_session> )> ) = 0;
+		virtual void stop() = 0;
 	};
 }

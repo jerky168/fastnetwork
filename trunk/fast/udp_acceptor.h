@@ -14,43 +14,28 @@ namespace fastnet {
 		public:
 			udp_acceptor()
 				: io_service_()
-				, local_endpoint_(ip::udp::v4(),20000)
-				, socket_(new ip::udp::socket(io_service_, local_endpoint_))
-				, remote_endpoint_()
-				, recv_buffer_()
-			{
-			}
-			udp_acceptor( unsigned short port )
-				: io_service_()
-				, local_endpoint_(ip::udp::v4(), port)
-				, socket_( new ip::udp::socket(io_service_, local_endpoint_) )
-				, remote_endpoint_()
-				, recv_buffer_()
-			{
-			}
-
-			udp_acceptor( const string & host, unsigned short port )
-				: io_service_()
-				, local_endpoint_(boost::asio::ip::address::from_string(host), port)
-				, socket_( new ip::udp::socket(io_service_, local_endpoint_) )
-				, remote_endpoint_()
-				, recv_buffer_()
-			{
-			}
-
-			udp_acceptor( const boost::asio::ip::address & addr, unsigned short port )
-				: io_service_()
-				, local_endpoint_(addr, port)
-				, socket_( new ip::udp::socket(io_service_, local_endpoint_) )
+				, socket_()
 				, remote_endpoint_()
 				, recv_buffer_()
 			{
 			}
 
 		public:
+			void bind( boost::asio::ip::udp::endpoint endpoint ) {
+				socket_.reset( new ip::udp::socket(io_service_, endpoint));
+			}
+
 			void start() {
 				start_receive();
 				io_service_.run();
+			}
+
+			void stop() {
+				if ( socket_ )
+				{
+					socket_->close();
+				}
+				io_service_.stop();
 			}
 
 			void set_handler( boost::function<void( shared_ptr<fastnet::io_session> )> handler ) {
@@ -72,7 +57,6 @@ namespace fastnet {
 
 		private:
 			boost::asio::io_service		io_service_;
-			ip::udp::endpoint				local_endpoint_;
 			boost::shared_ptr<boost::asio::ip::udp::socket>	socket_;
 			ip::udp::endpoint				remote_endpoint_;
 			boost::array<char, 1500>	recv_buffer_;

@@ -3,7 +3,8 @@
 
 #include "stdafx.h"
 #include "udp_acceptor.h"
-
+#include "types.h"
+#include "udp_session_handler.h"
 #include <boost/lexical_cast.hpp>
 
 void parse_host( wchar_t * param, string & host ) {
@@ -43,6 +44,7 @@ int _tmain(int argc, _TCHAR* argv[])
 	try
 	{
 		shared_ptr<fastnet::io_acceptor> server = fastnet::acceptor_factory::new_acceptor( fastnet::session_type::UDP );
+		server->bind( ip::udp::endpoint( boost::asio::ip::address_v4::from_string(host), port) );
 		server->set_handler( session_accepted );
 		server->start();
 	}

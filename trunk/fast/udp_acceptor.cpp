@@ -5,7 +5,7 @@ void fastnet::udp::udp_acceptor::handle_receive( const boost::system::error_code
 {
 	if (!error || error == boost::asio::error::message_size)
 	{
-		shared_ptr<fastnet::io_session> session( new udp_session( socket_, local_endpoint_, remote_endpoint_ ) );
+		shared_ptr<fastnet::io_session> session( new udp_session( socket_, socket_->local_endpoint(), remote_endpoint_ ) );
 		any message = shared_ptr<std::string>(
 			new std::string(recv_buffer_.data(), bytes_transferred));
 
