@@ -1,6 +1,5 @@
 #pragma once
 #include "types.h"
-#include "udp_session.h"
 
 class udp_session_handler : public fastnet::session_handler
 {

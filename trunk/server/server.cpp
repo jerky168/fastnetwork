@@ -2,10 +2,10 @@
 //
 
 #include "stdafx.h"
-#include "udp_acceptor.h"
 #include "types.h"
-#include "udp_session_handler.h"
 #include <boost/lexical_cast.hpp>
+#include "udp_session_handler.h"
+#include "message_filter.h"
 
 void parse_host( wchar_t * param, string & host ) {
 	size_t size = wcstombs( NULL, param, 0 );
@@ -27,6 +27,8 @@ void parse_port( wchar_t * param, unsigned short & port ) {
 void session_accepted( session_ptr session ) {
 	session_handler_ptr handler(new udp_session_handler());
 	session->set_handler( handler );
+	session->get_filter_chain()->add_filter( shared_ptr<session_filter>( new message_filter() ) );
+	session->get_filter_chain()->session_accepted( session );
 }
 
 int _tmain(int argc, _TCHAR* argv[])
@@ -43,8 +45,8 @@ int _tmain(int argc, _TCHAR* argv[])
 
 	try
 	{
-		shared_ptr<fastnet::io_acceptor> server = fastnet::acceptor_factory::new_acceptor( fastnet::session_type::UDP );
-		server->bind( ip::udp::endpoint( boost::asio::ip::address_v4::from_string(host), port) );
+		shared_ptr<fastnet::io_acceptor> server = acceptor_factory::new_acceptor( session_type::UDP );
+		server->bind( ip::udp::endpoint( ip::address_v4::from_string(host), port) );
 		server->set_handler( session_accepted );
 		server->start();
 	}

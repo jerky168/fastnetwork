@@ -41,7 +41,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="E:\library\boost_1_38_0"
+				AdditionalIncludeDirectories="\library\boost_1_38_0"
 				PreprocessorDefinitions="WIN32;_DEBUG;_LIB"
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
@@ -155,15 +155,15 @@
 				>
 			</File>
 			<File
-				RelativePath=".\io_acceptor.cpp"
+				RelativePath=".\default_filter_chain.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\io_session.cpp"
+				RelativePath=".\io_buffer.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\session_handler.cpp"
+				RelativePath=".\session_filter_chain.cpp"
 				>
 			</File>
 			<File
@@ -205,11 +205,23 @@
 				>
 			</File>
 			<File
+				RelativePath=".\default_filter_chain.h"
+				>
+			</File>
+			<File
 				RelativePath=".\fastnet.h"
 				>
 			</File>
 			<File
+				RelativePath=".\illegal_packet.h"
+				>
+			</File>
+			<File
 				RelativePath=".\io_acceptor.h"
+				>
+			</File>
+			<File
+				RelativePath=".\io_buffer.h"
 				>
 			</File>
 			<File
@@ -218,6 +230,14 @@
 			</File>
 			<File
 				RelativePath=".\log.h"
+				>
+			</File>
+			<File
+				RelativePath=".\session_filter.h"
+				>
+			</File>
+			<File
+				RelativePath=".\session_filter_chain.h"
 				>
 			</File>
 			<File
