@@ -1,5 +1,5 @@
 #pragma once
-//#include "types.h"
+#include "illegal_packet.h"
 #include "session_handler.h"
 
 namespace fastnet {
@@ -15,26 +15,22 @@ namespace fastnet {
 			~udp_session(void);
 
 		public:
-			void write( any message ) {
-				socket_->async_send_to(
-					boost::asio::buffer(*(any_cast<boost::shared_ptr<std::string>>(message))), 
-					remote_endpoint_,
-					boost::bind(&io_session::handle_write_complete, 
-						shared_from_this(), message,
-					boost::asio::placeholders::error,
-					boost::asio::placeholders::bytes_transferred));
-			}
+			void write( any message );
 
 			void close() {
 				handler_->session_closed(shared_from_this());
 			}
 
-			void set_handler( shared_ptr<fastnet::session_handler> handler ) {
+			void set_handler( shared_ptr<session_handler> handler ) {
 				this->handler_ = handler;
 			}
 
-			shared_ptr<fastnet::session_handler> get_handler() {
+			shared_ptr<session_handler> get_handler() {
 				return handler_;
+			}
+
+			boost::shared_ptr<session_filter_chain> get_filter_chain() {
+				return filter_chain_;
 			}
 
 			ip::udp::endpoint get_local_endpoint() const {
@@ -60,7 +56,8 @@ namespace fastnet {
 			ip::udp::endpoint				local_endpoint_;
 			ip::udp::endpoint				remote_endpoint_;
 
-			shared_ptr<fastnet::session_handler>	handler_;
+			shared_ptr<session_handler>		handler_;
+			shared_ptr<session_filter_chain> filter_chain_;
 		};
 	}
 }

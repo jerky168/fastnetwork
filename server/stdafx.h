@@ -26,7 +26,8 @@ using namespace boost;
 #include <boost/asio.hpp>
 using namespace boost::asio;
 
-#include <fastnet.h>
+#include <fast/fastnet.h>
+using namespace fastnet;
 
 #define ENABLE_LOG
 #include "log.h"

@@ -32,7 +32,11 @@ void read_send( const string & host, unsigned short port )
 			break;
 		}
 		cout << "[SYS:send]" << read << endl;
-		::sendto( s, read.c_str(), read.length(), 0, (SOCKADDR*)&to_addr, sizeof(to_addr) );
+		char send_buf[1024] = {0};
+		unsigned short message_len = static_cast<unsigned short>( read.length() );
+		::memcpy( send_buf, &message_len, sizeof(message_len) );
+		::memcpy( send_buf + sizeof(message_len), read.c_str(), message_len );
+		::sendto( s, send_buf, message_len + sizeof(message_len), 0, (SOCKADDR*)&to_addr, sizeof(to_addr) );
 
 		sockaddr_in server_addr;
 		int addr_size = sizeof(server_addr);
@@ -44,7 +48,9 @@ void read_send( const string & host, unsigned short port )
 			continue ;
 		}
 
-		string received( buf, size );
+		::memcpy( &message_len, buf, sizeof(message_len) );
+		assert( size >= message_len + 2 );
+		string received( buf + sizeof( message_len ), message_len );
 		cout << received << endl;
 	}
 }
