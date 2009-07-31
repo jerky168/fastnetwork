@@ -4,6 +4,7 @@
 
 namespace fastnet {
 	namespace udp {
+
 		using namespace std;
 		using namespace boost;
 		using namespace boost::asio;
@@ -45,6 +46,16 @@ namespace fastnet {
 				return socket_;
 			}
 
+			void set_attribute( const string & key, any value ) {
+				attributes_[key] = value;
+			}
+			any get_attribute( const string & key ) {
+				if( attributes_.find( key ) == attributes_.end() ) {
+					return any();
+				}
+				return attributes_[key];
+			}
+
 		private:
 			void handle_write_complete(any message,
 				const boost::system::error_code& /*error*/,
@@ -58,6 +69,8 @@ namespace fastnet {
 
 			shared_ptr<session_handler>		handler_;
 			shared_ptr<session_filter_chain> filter_chain_;
+
+			std::map<string,any>			attributes_;
 		};
 	}
 }

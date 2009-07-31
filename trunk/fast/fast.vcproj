@@ -159,6 +159,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\default_io_service.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\io_buffer.cpp"
 				>
 			</File>
@@ -206,6 +210,10 @@
 			</File>
 			<File
 				RelativePath=".\default_filter_chain.h"
+				>
+			</File>
+			<File
+				RelativePath=".\default_io_service.h"
 				>
 			</File>
 			<File
