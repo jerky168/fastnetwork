@@ -9,9 +9,43 @@ namespace fastnet {
 		virtual ~io_acceptor(void){}
 
 	public:
+		//************************************
+		// Method:    start, start to accept client connections
+		// FullName:  fastnet::io_acceptor::start
+		// Access:    virtual public 
+		// Returns:   void
+		// Qualifier:
+		//************************************
 		virtual void start() = 0;
+		
+		//************************************
+		// Method:    bind, bind to specified local endpoint
+		// FullName:  fastnet::io_acceptor::bind
+		// Access:    virtual public 
+		// Returns:   void
+		// Qualifier:
+		// Parameter: boost::asio::ip::udp::endpoint endpoint
+		//************************************
 		virtual void bind( boost::asio::ip::udp::endpoint endpoint ) = 0;
+
+		//************************************
+		// Method:    set_handler, set the accept handler. accept handler could init session on created.
+		// FullName:  fastnet::io_acceptor::set_handler
+		// Access:    virtual public 
+		// Returns:   void
+		// Qualifier:
+		// Parameter: boost::function<void
+		// Parameter: boost::shared_ptr<io_session> 
+		//************************************
 		virtual void set_handler( boost::function<void( boost::shared_ptr<io_session> )> ) = 0;
+
+		//************************************
+		// Method:    stop, stop acceptting new connections.
+		// FullName:  fastnet::io_acceptor::stop
+		// Access:    virtual public 
+		// Returns:   void
+		// Qualifier:
+		//************************************
 		virtual void stop() = 0;
 	};
 }

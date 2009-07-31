@@ -31,6 +31,24 @@ namespace fastnet {
 			const system::error_code& /*error*/,
 			size_t /*bytes_transferred*/) = 0;
 
-		
+		//************************************
+		// Method:    set_attribute, set an attribute value in this session. support session storage
+		// FullName:  fastnet::io_session::set_attribute
+		// Access:    virtual public 
+		// Returns:   void
+		// Qualifier:
+		// Parameter: const string & key
+		// Parameter: any value
+		//************************************
+		virtual void set_attribute( const string & key, any value ) = 0;
+		//************************************
+		// Method:    get_attribute, get the attribute
+		// FullName:  fastnet::io_session::get_attribute
+		// Access:    virtual public 
+		// Returns:   boost::any
+		// Qualifier:
+		// Parameter: const string & key
+		//************************************
+		virtual any get_attribute( const string & key ) = 0;
 	};
 }
