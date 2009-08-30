@@ -7,7 +7,7 @@ public:
 	~message_filter(void);
 
 public:
-	void session_accepted( shared_ptr<io_session> session ){}
+	void session_connected( shared_ptr<io_session> session ){}
 	void session_closed( shared_ptr<io_session> session ){}
 	void session_timeout( shared_ptr<io_session> session ){}
 	any filter_receive( shared_ptr<io_session> session, any p ){

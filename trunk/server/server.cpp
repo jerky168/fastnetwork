@@ -28,7 +28,7 @@ void session_accepted( session_ptr session ) {
 	session_handler_ptr handler(new udp_session_handler());
 	session->set_handler( handler );
 	session->get_filter_chain()->add_filter( shared_ptr<session_filter>( new message_filter() ) );
-	session->get_filter_chain()->session_accepted( session );
+	session->get_filter_chain()->session_connected( session );
 }
 
 int _tmain(int argc, _TCHAR* argv[])
@@ -43,12 +43,18 @@ int _tmain(int argc, _TCHAR* argv[])
 		parse_port( argv[2], port );
 	}
 
+	io_service ios;
+
 	try
 	{
-		shared_ptr<fastnet::io_acceptor> server = acceptor_factory::new_acceptor( session_type::UDP );
+		io_service::work work(ios);
+
+		shared_ptr<fastnet::io_acceptor> server = acceptor_factory::new_acceptor( fastnet::UDP, ios );
 		server->bind( ip::udp::endpoint( ip::address_v4::from_string(host), port) );
 		server->set_handler( session_accepted );
 		server->start();
+
+		ios.run();
 	}
 	catch (std::exception& e)
 	{

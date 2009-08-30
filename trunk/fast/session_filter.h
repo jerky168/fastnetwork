@@ -14,7 +14,7 @@ namespace fastnet {
 		virtual ~session_filter(void) {}
 
 	public:
-		virtual void session_accepted( shared_ptr<io_session> session ) =0;
+		virtual void session_connected( shared_ptr<io_session> session ) =0;
 		virtual void session_closed( shared_ptr<io_session> session ) =0;
 		virtual void session_timeout( shared_ptr<io_session> session ) =0;
 		virtual any filter_receive( shared_ptr<io_session> session, any packet ) =0;
