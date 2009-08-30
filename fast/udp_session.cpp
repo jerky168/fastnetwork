@@ -11,6 +11,7 @@ udp_session::udp_session(shared_ptr<ip::udp::socket> socket, ip::udp::endpoint l
 , local_endpoint_(local)
 , remote_endpoint_(remote)
 , filter_chain_( new default_filter_chain() )
+, connected_(false)
 {
 }
 

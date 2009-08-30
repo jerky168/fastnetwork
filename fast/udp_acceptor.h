@@ -12,8 +12,8 @@ namespace fastnet {
 		class udp_acceptor : public fastnet::io_acceptor
 		{
 		public:
-			udp_acceptor()
-				: io_service_()
+			udp_acceptor( io_service & ios )
+				: io_service_(ios)
 				, socket_()
 				, remote_endpoint_()
 				, recv_buffer_()
@@ -27,7 +27,6 @@ namespace fastnet {
 
 			void start() {
 				start_receive();
-				io_service_.run();
 			}
 
 			void stop() {
@@ -56,12 +55,12 @@ namespace fastnet {
 				std::size_t bytes_transferred);
 
 		private:
-			boost::asio::io_service		io_service_;
-			boost::shared_ptr<boost::asio::ip::udp::socket>	socket_;
-			ip::udp::endpoint				remote_endpoint_;
-			boost::array<char, 1500>	recv_buffer_;
+			io_service&					io_service_;
+			shared_ptr<ip::udp::socket>	socket_;
+			ip::udp::endpoint			remote_endpoint_;
+			array<char, 1500>			recv_buffer_;
 
-			boost::function<void( shared_ptr<fastnet::io_session> )>	handler_;
+			function<void( shared_ptr<fastnet::io_session> )>	handler_;
 		};
 	}
 }

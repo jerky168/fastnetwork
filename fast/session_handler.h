@@ -15,7 +15,7 @@ namespace fastnet {
 
 		virtual void message_sent( boost::shared_ptr<io_session> session, boost::any message ) = 0;
 
-		virtual void session_accepted( boost::shared_ptr<io_session> session ) = 0;
+		virtual void session_connected( boost::shared_ptr<io_session> session ) = 0;
 
 		virtual void session_closed( boost::shared_ptr<io_session> session ) = 0;
 

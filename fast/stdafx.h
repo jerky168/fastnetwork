@@ -16,6 +16,7 @@
 
 #include <boost/smart_ptr.hpp>
 #include <boost/any.hpp>
+#include <boost/function.hpp>
 #include <boost/bind.hpp>
 
 #include <boost/asio.hpp>

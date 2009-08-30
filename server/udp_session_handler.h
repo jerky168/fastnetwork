@@ -12,7 +12,7 @@ public:
 
 	void message_sent( session_ptr session, any message );
 
-	void session_accepted( session_ptr session );
+	void session_connected( session_ptr session );
 
 	void session_closed( session_ptr session );
 

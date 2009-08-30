@@ -22,6 +22,7 @@ using namespace std;
 #include <boost/function.hpp>
 #include <boost/bind.hpp>
 #include <boost/smart_ptr.hpp>
+#include <boost/thread.hpp>
 using namespace boost;
 
 #include <boost/asio.hpp>
@@ -29,6 +30,3 @@ using namespace boost::asio;
 
 #include <fast/fastnet.h>
 using namespace fastnet;
-
-#define ENABLE_LOG
-#include "log.h"

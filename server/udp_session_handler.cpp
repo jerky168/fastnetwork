@@ -23,7 +23,7 @@ void udp_session_handler::message_sent( session_ptr session, any message )
 	session->close();
 }
 
-void udp_session_handler::session_accepted( session_ptr session )
+void udp_session_handler::session_connected( session_ptr session )
 {
 	sessions_.insert( make_pair(session->get_remote_endpoint(), session) );
 }

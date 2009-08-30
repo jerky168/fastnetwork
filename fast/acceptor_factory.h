@@ -11,11 +11,11 @@ namespace fastnet {
 		~acceptor_factory(void){}
 
 	public:
-		static boost::shared_ptr<io_acceptor> new_acceptor( session_type type ) {
+		static boost::shared_ptr<io_acceptor> new_acceptor( session_type type, io_service & ios ) {
 			boost::shared_ptr<io_acceptor> acceptor;
 			switch( type ) {
 	case UDP:
-		acceptor.reset( new fastnet::udp::udp_acceptor() );
+		acceptor.reset( new fastnet::udp::udp_acceptor(ios) );
 		break;
 	default:
 		break;

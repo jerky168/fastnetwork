@@ -32,9 +32,9 @@ namespace fastnet {
 			}
 		}
 
-		void session_accepted( shared_ptr<io_session> session ) {
-			reverse_filters( session, &session_filter::session_accepted );
-			session->get_handler()->session_accepted( session );
+		void session_connected( shared_ptr<io_session> session ) {
+			reverse_filters( session, &session_filter::session_connected );
+			session->get_handler()->session_connected( session );
 		}
 
 		void session_closed( shared_ptr<io_session> session ) {

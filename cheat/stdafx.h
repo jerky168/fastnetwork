@@ -17,6 +17,10 @@
 #include <string>
 using namespace std;
 
-
+#include <boost/thread.hpp>
+#include <boost/bind.hpp>
 #include <boost/smart_ptr.hpp>
 using namespace boost;
+
+#include <boost/asio.hpp>
+using namespace boost::asio;

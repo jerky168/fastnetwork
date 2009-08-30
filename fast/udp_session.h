@@ -20,6 +20,7 @@ namespace fastnet {
 
 			void close() {
 				handler_->session_closed(shared_from_this());
+				connected_ = false;
 			}
 
 			void set_handler( shared_ptr<session_handler> handler ) {
@@ -55,6 +56,17 @@ namespace fastnet {
 				}
 				return attributes_[key];
 			}
+			void remove_attribute( const string & key ) {
+				attributes_.erase(key);
+			}
+
+			bool is_connected() {
+				return connected_;
+			}
+
+			void connected() {
+				connected_ = true;
+			}
 
 		private:
 			void handle_write_complete(any message,
@@ -71,6 +83,8 @@ namespace fastnet {
 			shared_ptr<session_filter_chain> filter_chain_;
 
 			std::map<string,any>			attributes_;
+
+			bool							connected_;
 		};
 	}
 }
