@@ -16,7 +16,7 @@ namespace fastnet
 			~datagram_acceptor(void);
 
 		public:
-			session_type get_session_type() { return UDP; }
+			transport_type get_session_type() { return UDP; }
 
 			void bind( boost::asio::ip::udp::endpoint endpoint ) {
 				local_endpoint_ = endpoint;

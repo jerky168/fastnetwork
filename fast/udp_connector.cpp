@@ -11,7 +11,7 @@ void fastnet::udp::udp_connector::handle_receive( const boost::system::error_cod
 {
 	if (!error || error == boost::asio::error::message_size)
 	{
-		shared_ptr<fastnet::io_session> session( new udp_session( socket_, socket_->local_endpoint(), remote_endpoint_ ) );
+		shared_ptr<fastnet::io_session> session( new udp_session( socket_, socket_->local_endpoint(), remote_socket_endpoint_ ) );
 		shared_ptr<io_buffer> packet( new io_buffer(recv_buffer_.data(), bytes_transferred) );
 
 		// handler_.session_created(session);
@@ -32,13 +32,14 @@ static void handle_connected( const boost::system::error_code & error ) {
 
 }
 
-void fastnet::udp::udp_connector::connect( ip::udp::endpoint endpoint )
+void fastnet::udp::udp_connector::connect( endpoint endpoint )
 {
 	if( ! socket_ ) {
 		socket_.reset( new ip::udp::socket(io_service_) );
 	}
 
-	socket_->async_connect( endpoint,
+	remote_socket_endpoint_ = ip::udp::endpoint( endpoint.address(), endpoint.port() );
+	socket_->async_connect( remote_socket_endpoint_,
 		::boost::bind( &udp_connector::handle_connect, this, boost::asio::placeholders::error )
 		);
 }
@@ -47,7 +48,7 @@ void fastnet::udp::udp_connector::start_receive()
 {
 	LOG( "receive at local: " << socket_->local_endpoint() );
 	socket_->async_receive_from(
-		boost::asio::buffer(recv_buffer_), remote_endpoint_,
+		boost::asio::buffer(recv_buffer_), remote_socket_endpoint_,
 		boost::bind(&udp_connector::handle_receive, this,
 		boost::asio::placeholders::error,
 		boost::asio::placeholders::bytes_transferred));
@@ -56,6 +57,7 @@ void fastnet::udp::udp_connector::start_receive()
 void fastnet::udp::udp_connector::handle_connect( const boost::system::error_code& error )
 {
 	if ( ! error ) {
+		local_endpoint_ = socket_->local_endpoint();
 		shared_ptr<io_session> session( new udp_session( socket_, socket_->local_endpoint(), socket_->remote_endpoint() ) );
 		start_receive();
 		handler_(session);

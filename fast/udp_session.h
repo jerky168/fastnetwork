@@ -12,7 +12,7 @@ namespace fastnet {
 		class udp_session : public fastnet::io_session
 		{
 		public:
-			udp_session(shared_ptr<ip::udp::socket> socket, ip::udp::endpoint local, ip::udp::endpoint remote);
+			udp_session(shared_ptr<ip::udp::socket> socket, endpoint local, endpoint remote);
 			~udp_session(void);
 
 		public:
@@ -35,11 +35,11 @@ namespace fastnet {
 				return filter_chain_;
 			}
 
-			ip::udp::endpoint get_local_endpoint() const {
+			endpoint get_local_endpoint() const {
 				return local_endpoint_;
 			}
 
-			ip::udp::endpoint get_remote_endpoint() const {
+			endpoint get_remote_endpoint() const {
 				return remote_endpoint_;
 			}
 
@@ -76,8 +76,9 @@ namespace fastnet {
 
 		private:
 			shared_ptr<ip::udp::socket>		socket_;
-			ip::udp::endpoint				local_endpoint_;
-			ip::udp::endpoint				remote_endpoint_;
+			endpoint						local_endpoint_;
+			endpoint						remote_endpoint_;
+			ip::udp::endpoint				socket_endpoint_;
 
 			shared_ptr<session_handler>		handler_;
 			shared_ptr<session_filter_chain> filter_chain_;

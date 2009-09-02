@@ -4,12 +4,14 @@
 #include "io_buffer.h"
 using namespace std;
 using namespace boost;
+using namespace fastnet;
 using namespace fastnet::udp;
 
-udp_session::udp_session(shared_ptr<ip::udp::socket> socket, ip::udp::endpoint local, ip::udp::endpoint remote)
+udp_session::udp_session(shared_ptr<ip::udp::socket> socket, endpoint local, endpoint remote)
 : socket_(socket)
 , local_endpoint_(local)
 , remote_endpoint_(remote)
+, socket_endpoint_ (remote_endpoint_.address(), remote_endpoint_.port())
 , filter_chain_( new default_filter_chain() )
 , connected_(false)
 {
@@ -31,7 +33,7 @@ void udp_session::write( any message ) {
 		shared_ptr<io_buffer> buffer = any_cast<shared_ptr<io_buffer>>( p );
 		socket_->async_send_to(
 			boost::asio::buffer( buffer->data(), buffer->size() ), 
-			remote_endpoint_,
+			socket_endpoint_,
 			boost::bind(&io_session::handle_write_complete, 
 			shared_from_this(), message,
 			boost::asio::placeholders::error,

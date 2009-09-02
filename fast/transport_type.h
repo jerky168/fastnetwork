@@ -3,6 +3,7 @@
 namespace fastnet
 {
 	enum transport_type {
-		UDP,
+		UDP = 1,
+		TCP = 2,
 	};
 }

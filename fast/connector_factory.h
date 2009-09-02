@@ -1,5 +1,5 @@
 #pragma once
-#include "session_type.h"
+#include "transport_type.h"
 #include "udp_connector.h"
 
 namespace fastnet {
@@ -8,7 +8,7 @@ namespace fastnet {
 	class connector_factory
 	{
 	public:
-		static shared_ptr<io_connector> new_connector( session_type type, io_service & ios ) {
+		static shared_ptr<io_connector> new_connector( transport_type type, io_service & ios ) {
 			shared_ptr<io_connector> connector;
 			switch( type ) {
 	case UDP:

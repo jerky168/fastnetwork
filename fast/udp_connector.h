@@ -11,14 +11,20 @@ namespace fastnet {
 				: io_service_(ios)
 				, socket_()
 				, recv_buffer_()
+				, local_endpoint_(UDP)
 				, handler_()
 			{
 			}
 
 		public:
-			void connect( ip::udp::endpoint endpoint );
-			void bind( ip::udp::endpoint endpoint ) {
-				socket_.reset( new ip::udp::socket(io_service_, endpoint) );
+			void connect( endpoint endpoint );
+			void bind( endpoint endpoint ) {
+				if ( endpoint.transport() != fastnet::UDP )
+				{
+					throw std::exception("endpoint should be udp.");
+				}
+				ip::udp::endpoint e( endpoint.address(), endpoint.port() );
+				socket_.reset( new ip::udp::socket(io_service_, e) );
 			}
 
 			void set_handler( function<void( shared_ptr<fastnet::io_session> )> handler ) {
@@ -35,7 +41,8 @@ namespace fastnet {
 			io_service&					io_service_;
 			shared_ptr<ip::udp::socket>	socket_;
 			array<char, 1500>			recv_buffer_;
-			ip::udp::endpoint			remote_endpoint_;
+			endpoint					local_endpoint_;
+			ip::udp::endpoint			remote_socket_endpoint_;
 
 			function<void( shared_ptr<fastnet::io_session> )>	handler_;
 		};
