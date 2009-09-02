@@ -26,7 +26,7 @@ namespace fastnet {
 		// Qualifier:
 		// Parameter: boost::asio::ip::udp::endpoint endpoint
 		//************************************
-		virtual void bind( boost::asio::ip::udp::endpoint endpoint ) = 0;
+		virtual void bind( endpoint endpoint ) = 0;
 
 		//************************************
 		// Method:    set_handler, set the accept handler. accept handler could init session on created.

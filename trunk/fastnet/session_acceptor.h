@@ -18,7 +18,7 @@ namespace fastnet
 		virtual ~session_acceptor(void);
 
 	public:
-		virtual session_type get_session_type() = 0;
+		virtual transport_type get_session_type() = 0;
 		virtual void bind( boost::asio::ip::udp::endpoint local_address ) = 0;
 		virtual void unbind( boost::asio::ip::udp::endpoint local_address ) = 0;
 		virtual void set_handler( session_accept_handler * handler ) = 0;

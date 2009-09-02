@@ -12,8 +12,8 @@ namespace fastnet {
 		virtual ~io_connector(void){}
 
 	public:
-		virtual void connect( ip::udp::endpoint endpoint ) = 0;
-		virtual void bind( ip::udp::endpoint endpoint ) = 0;
+		virtual void connect( endpoint endpoint ) = 0;
+		virtual void bind( endpoint endpoint ) = 0;
 		virtual void set_handler( function<void( shared_ptr<io_session> )> ) = 0;
 	};
 }

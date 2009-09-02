@@ -11,7 +11,8 @@ udp_session_handler::~udp_session_handler(void)
 
 void udp_session_handler::message_received( session_ptr session, any message )
 {
-	LOG( "message received from " << session->get_remote_endpoint() << "@" << session->get_local_endpoint() );
+	std::cout << session->get_remote_endpoint() << std::endl;
+	//LOG( "message received from " << session->get_remote_endpoint() << "@" << session->get_local_endpoint() );
 	LOG( "sending: " << *(any_cast<message_ptr>(message)) );
 
 	session->write( message );

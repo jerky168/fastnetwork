@@ -221,6 +221,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\endpoint.h"
+				>
+			</File>
+			<File
 				RelativePath=".\fastnet.h"
 				>
 			</File>
@@ -261,15 +265,15 @@
 				>
 			</File>
 			<File
-				RelativePath=".\session_type.h"
-				>
-			</File>
-			<File
 				RelativePath=".\stdafx.h"
 				>
 			</File>
 			<File
 				RelativePath=".\targetver.h"
+				>
+			</File>
+			<File
+				RelativePath=".\transport_type.h"
 				>
 			</File>
 			<File

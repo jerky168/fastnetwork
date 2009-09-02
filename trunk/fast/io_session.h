@@ -1,6 +1,7 @@
 #pragma once
 #include "session_handler.h"
 #include "session_filter_chain.h"
+#include "endpoint.h"
 
 namespace fastnet {
 	using namespace std;
@@ -44,8 +45,8 @@ namespace fastnet {
 		//************************************
 		virtual shared_ptr<session_filter_chain> get_filter_chain() = 0;
 
-		virtual ip::udp::endpoint get_remote_endpoint() const = 0;
-		virtual ip::udp::endpoint get_local_endpoint() const = 0;		
+		virtual endpoint get_remote_endpoint() const = 0;
+		virtual endpoint get_local_endpoint() const = 0;		
 		//************************************
 		// Method:    write, write an object. filters associated will transform the object to network bytes, and then send to the other end point.
 		// FullName:  fastnet::io_session::write

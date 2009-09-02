@@ -13,7 +13,7 @@ namespace fastnet
 		~session_acceptor_factory(void);
 
 	public:
-		static session_acceptor * new_session_acceptor( session_type type ) {
+		static session_acceptor * new_session_acceptor( transport_type type ) {
 			switch( type ) {
 	case UDP:
 		return new fastnet::udp::datagram_acceptor();

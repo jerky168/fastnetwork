@@ -15,14 +15,16 @@ namespace fastnet {
 			udp_acceptor( io_service & ios )
 				: io_service_(ios)
 				, socket_()
+				, local_(UDP)
 				, remote_endpoint_()
 				, recv_buffer_()
 			{
 			}
 
 		public:
-			void bind( boost::asio::ip::udp::endpoint endpoint ) {
-				socket_.reset( new ip::udp::socket(io_service_, endpoint));
+			void bind( endpoint endpoint ) {
+				local_ = endpoint;
+				socket_.reset( new ip::udp::socket(io_service_, ip::udp::endpoint(local_.address(),local_.port())));
 			}
 
 			void start() {
@@ -57,6 +59,7 @@ namespace fastnet {
 		private:
 			io_service&					io_service_;
 			shared_ptr<ip::udp::socket>	socket_;
+			endpoint					local_;
 			ip::udp::endpoint			remote_endpoint_;
 			array<char, 1500>			recv_buffer_;
 
