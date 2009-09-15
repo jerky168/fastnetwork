@@ -126,5 +126,14 @@ namespace fastnet {
 		// Qualifier:
 		//************************************
 		virtual void connected() = 0;
+
+		//************************************
+		// Method:    is_idle
+		// FullName:  fastnet::io_session::is_idle
+		// Access:    virtual public 
+		// Returns:   bool
+		// Qualifier:
+		//************************************
+		virtual bool is_idle() = 0;
 	};
 }

@@ -24,7 +24,7 @@ void parse_port( wchar_t * param, unsigned short & port ) {
 	}
 }
 
-void session_accepted( session_ptr session ) {
+void session_created( session_ptr session ) {
 	session_handler_ptr handler(new udp_session_handler());
 	session->set_handler( handler );
 	session->get_filter_chain()->add_filter( shared_ptr<session_filter>( new message_filter() ) );
@@ -51,7 +51,7 @@ int _tmain(int argc, _TCHAR* argv[])
 
 		shared_ptr<fastnet::io_acceptor> server = acceptor_factory::new_acceptor( fastnet::UDP, ios );
 		server->bind( ip::udp::endpoint( ip::address_v4::from_string(host), port) );
-		server->set_handler( session_accepted );
+		server->set_handler( session_created );
 		server->start();
 
 		ios.run();

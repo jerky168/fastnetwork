@@ -19,6 +19,6 @@ namespace fastnet {
 
 		virtual void session_closed( boost::shared_ptr<io_session> session ) = 0;
 
-		virtual void session_timeout( boost::shared_ptr<io_session> session ) = 0;
+		virtual void session_idle( boost::shared_ptr<io_session> session ) = 0;
 	};
 }

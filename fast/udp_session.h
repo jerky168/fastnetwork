@@ -1,6 +1,7 @@
 #pragma once
 #include "illegal_packet.h"
 #include "session_handler.h"
+#include "udp_session_manager.h"
 
 namespace fastnet {
 	namespace udp {
@@ -8,20 +9,20 @@ namespace fastnet {
 		using namespace std;
 		using namespace boost;
 		using namespace boost::asio;
+		using namespace boost::posix_time;
 
-		class udp_session : public fastnet::io_session
+		class udp_session_manager;
+
+		class udp_session : public fastnet::io_session, noncopyable
 		{
 		public:
-			udp_session(shared_ptr<ip::udp::socket> socket, endpoint local, endpoint remote);
+			udp_session( udp_session_manager & manager, shared_ptr<ip::udp::socket> socket, endpoint remote, size_t timeout_sec );
 			~udp_session(void);
 
 		public:
 			void write( any message );
 
-			void close() {
-				handler_->session_closed(shared_from_this());
-				connected_ = false;
-			}
+			void close();
 
 			void set_handler( shared_ptr<session_handler> handler ) {
 				this->handler_ = handler;
@@ -68,6 +69,10 @@ namespace fastnet {
 				connected_ = true;
 			}
 
+			bool is_idle() {
+				return ( last_active_time_ + idle_timeout_ > microsec_clock::local_time() );
+			}
+
 		private:
 			void handle_write_complete(any message,
 				const boost::system::error_code& /*error*/,
@@ -75,6 +80,7 @@ namespace fastnet {
 
 
 		private:
+			udp_session_manager &			manager_;
 			shared_ptr<ip::udp::socket>		socket_;
 			endpoint						local_endpoint_;
 			endpoint						remote_endpoint_;
@@ -86,6 +92,9 @@ namespace fastnet {
 			std::map<string,any>			attributes_;
 
 			bool							connected_;
+
+			ptime							last_active_time_;
+			time_duration					idle_timeout_;
 		};
 	}
 }

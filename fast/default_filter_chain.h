@@ -42,9 +42,9 @@ namespace fastnet {
 			do_filters( session, &session_filter::session_closed );
 		}
 
-		void session_timeout( shared_ptr<io_session> session ) {
-			do_filters( session, &session_filter::session_timeout );
-			session->get_handler()->session_timeout( session );
+		void session_idle( shared_ptr<io_session> session ) {
+			do_filters( session, &session_filter::session_idle );
+			session->get_handler()->session_idle( session );
 		}
 
 		any filter_receive( shared_ptr<io_session> session, any packet ) {

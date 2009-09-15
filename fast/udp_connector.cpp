@@ -11,11 +11,11 @@ void fastnet::udp::udp_connector::handle_receive( const boost::system::error_cod
 {
 	if (!error || error == boost::asio::error::message_size)
 	{
-		shared_ptr<fastnet::io_session> session( new udp_session( socket_, socket_->local_endpoint(), remote_socket_endpoint_ ) );
+		shared_ptr<fastnet::io_session> session = manager_.new_session( socket_, remote_socket_endpoint_ );
 		shared_ptr<io_buffer> packet( new io_buffer(recv_buffer_.data(), bytes_transferred) );
 
-		// handler_.session_created(session);
-		handler_(session);
+		create_handler_(session);
+		session->get_filter_chain()->session_connected(session);
 		any message = session->get_filter_chain()->filter_receive( session, packet );
 		session->get_handler()->message_received( session, message );
 
@@ -25,10 +25,6 @@ void fastnet::udp::udp_connector::handle_receive( const boost::system::error_cod
 	{
 		LOG( error );
 	}
-
-}
-
-static void handle_connected( const boost::system::error_code & error ) {
 
 }
 
@@ -58,10 +54,10 @@ void fastnet::udp::udp_connector::handle_connect( const boost::system::error_cod
 {
 	if ( ! error ) {
 		local_endpoint_ = socket_->local_endpoint();
-		shared_ptr<io_session> session( new udp_session( socket_, socket_->local_endpoint(), socket_->remote_endpoint() ) );
+		shared_ptr<io_session> session = manager_.new_session( socket_, socket_->remote_endpoint() );
 		start_receive();
-		handler_(session);
+		create_handler_(session);
 	} else {
-		handler_( shared_ptr<io_session>() );
+		create_handler_( shared_ptr<io_session>() );
 	}
 }
