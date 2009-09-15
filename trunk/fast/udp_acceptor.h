@@ -2,6 +2,7 @@
 
 #include "io_acceptor.h"
 #include "udp_session.h"
+#include "udp_session_manager.h"
 
 namespace fastnet {
 	namespace udp {
@@ -9,7 +10,7 @@ namespace fastnet {
 		using namespace boost;
 		using namespace boost::asio;
 
-		class udp_acceptor : public fastnet::io_acceptor
+		class udp_acceptor : public fastnet::io_acceptor, noncopyable
 		{
 		public:
 			udp_acceptor( io_service & ios )
@@ -18,6 +19,7 @@ namespace fastnet {
 				, local_(UDP)
 				, remote_endpoint_()
 				, recv_buffer_()
+				, session_manager_(io_service_)
 			{
 			}
 
@@ -40,7 +42,11 @@ namespace fastnet {
 			}
 
 			void set_handler( boost::function<void( shared_ptr<fastnet::io_session> )> handler ) {
-				this->handler_ = handler;
+				this->create_handler_ = handler;
+			}
+
+			void close_session( shared_ptr<io_session> session ) {
+				session_manager_.close_session(session);
 			}
 
 		private:
@@ -62,8 +68,9 @@ namespace fastnet {
 			endpoint					local_;
 			ip::udp::endpoint			remote_endpoint_;
 			array<char, 1500>			recv_buffer_;
+			udp_session_manager			session_manager_;
 
-			function<void( shared_ptr<fastnet::io_session> )>	handler_;
+			function<void( shared_ptr<fastnet::io_session> )>	create_handler_;
 		};
 	}
 }

@@ -1,10 +1,11 @@
 #pragma once
 #include "io_connector.h"
+#include "udp_session_manager.h"
 
 namespace fastnet {
 	namespace udp {
 		class udp_connector :
-			public io_connector
+			public io_connector, noncopyable
 		{
 		public:
 			udp_connector( io_service& ios )
@@ -12,7 +13,8 @@ namespace fastnet {
 				, socket_()
 				, recv_buffer_()
 				, local_endpoint_(UDP)
-				, handler_()
+				, manager_(io_service_)
+				, create_handler_()
 			{
 			}
 
@@ -28,7 +30,7 @@ namespace fastnet {
 			}
 
 			void set_handler( function<void( shared_ptr<fastnet::io_session> )> handler ) {
-				this->handler_ = handler;
+				this->create_handler_ = handler;
 			}
 
 		private:
@@ -43,8 +45,9 @@ namespace fastnet {
 			array<char, 1500>			recv_buffer_;
 			endpoint					local_endpoint_;
 			ip::udp::endpoint			remote_socket_endpoint_;
+			udp_session_manager			manager_;
 
-			function<void( shared_ptr<fastnet::io_session> )>	handler_;
+			function<void( shared_ptr<fastnet::io_session> )>	create_handler_;
 		};
 	}
 }

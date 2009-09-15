@@ -41,7 +41,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="\library\boost_1_38_0"
+				AdditionalIncludeDirectories="\library\boost_1_40_0"
 				PreprocessorDefinitions="WIN32;_DEBUG;_LIB"
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
@@ -105,7 +105,7 @@
 				Name="VCCLCompilerTool"
 				Optimization="2"
 				EnableIntrinsicFunctions="true"
-				AdditionalIncludeDirectories="E:\library\boost_1_38_0"
+				AdditionalIncludeDirectories="\library\boost_1_40_0"
 				PreprocessorDefinitions="WIN32;NDEBUG;_LIB"
 				RuntimeLibrary="0"
 				EnableFunctionLevelLinking="true"
@@ -167,6 +167,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\period_timer.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\session_filter_chain.cpp"
 				>
 			</File>
@@ -200,6 +204,10 @@
 			</File>
 			<File
 				RelativePath=".\udp_session.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\udp_session_manager.cpp"
 				>
 			</File>
 		</Filter>
@@ -253,6 +261,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\period_timer.h"
+				>
+			</File>
+			<File
 				RelativePath=".\session_filter.h"
 				>
 			</File>
@@ -286,6 +298,10 @@
 			</File>
 			<File
 				RelativePath=".\udp_session.h"
+				>
+			</File>
+			<File
+				RelativePath=".\udp_session_manager.h"
 				>
 			</File>
 		</Filter>

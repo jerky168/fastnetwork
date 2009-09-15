@@ -9,7 +9,7 @@ public:
 public:
 	void session_connected( shared_ptr<io_session> session ){}
 	void session_closed( shared_ptr<io_session> session ){}
-	void session_timeout( shared_ptr<io_session> session ){}
+	void session_idle( shared_ptr<io_session> session ){}
 	any filter_receive( shared_ptr<io_session> session, any p ){
 		try {
 			shared_ptr<io_buffer> packet = any_cast<shared_ptr<io_buffer>>( p );

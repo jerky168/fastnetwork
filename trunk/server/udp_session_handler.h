@@ -16,10 +16,7 @@ public:
 
 	void session_closed( session_ptr session );
 
-	void session_timeout( session_ptr session ) {
-
+	void session_idle( session_ptr session ) {
+		session->close();
 	}
-
-private:
-	map<endpoint, session_ptr>	sessions_;
 };

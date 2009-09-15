@@ -37,7 +37,7 @@ public:
 		session_.reset();
 	}
 
-	void session_timeout( session_ptr session ) {
+	void session_idle( session_ptr session ) {
 
 	}
 

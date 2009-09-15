@@ -33,7 +33,7 @@ void read_send( session_ptr session ) {
 //	session->write( shared_ptr<io_buffer>( new io_buffer( send_buf, message_len + sizeof(message_len))) );
 }
 
-void session_connected( session_ptr session ) {
+void session_created( session_ptr session ) {
 	if( ! session ) {
 		LOG( "error, not connected." );
 		return ;
@@ -75,7 +75,7 @@ int _tmain(int argc, _TCHAR* argv[])
 		run_service( ios_ );
 
 		shared_ptr<fastnet::io_connector> connector( new udp::udp_connector( ios_ ) );
-		connector->set_handler( session_connected );
+		connector->set_handler( session_created );
 
 //		connector->connect( ip::udp::endpoint( ip::address_v4::from_string(host), port ) );
 		// while using ip::address_v4::from_string(host), async_receive_from won't work
