@@ -32,8 +32,8 @@ using namespace boost::asio;
 using namespace boost::asio::ip;
 
 
-#include <fastnet/fastnet.h>
-using namespace fastnet;
-using namespace fastnet::udp;
+#include <fastnetwork/fastnet.h>
+using namespace fastnetwork;
+using namespace fastnetwork::udp;
 
 #define LOG(msg)

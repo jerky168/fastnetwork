@@ -10,7 +10,7 @@ void show_usage( _TCHAR* app_name )
 	cout << app_name << " ip port" << endl;
 }
 
-class accept_handler : public fastnet::session_accept_handler {
+class accept_handler : public fastnetwork::session_accept_handler {
 public:
 	accept_handler( session_handler * handler ) : handler_(handler) {}
 

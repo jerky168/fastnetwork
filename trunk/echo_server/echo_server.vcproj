@@ -168,8 +168,8 @@
 	</Configurations>
 	<References>
 		<ProjectReference
-			ReferencedProjectIdentifier="{2E2E0A8D-EA91-415A-A363-20B286254EFC}"
-			RelativePathToProject=".\fastnet\fastnet.vcproj"
+			ReferencedProjectIdentifier="{7A08B416-79AB-4F94-90E3-AFA3CF929F28}"
+			RelativePathToProject=".\fastnetwork\fastnetwork.vcproj"
 		/>
 	</References>
 	<Files>
