@@ -1,8 +1,8 @@
 #pragma once
 
-typedef boost::shared_ptr<fastnet::io_session> session_ptr;
+typedef boost::shared_ptr<fastnetwork::io_session> session_ptr;
 
-typedef boost::shared_ptr<fastnet::session_handler> session_handler_ptr;
+typedef boost::shared_ptr<fastnetwork::session_handler> session_handler_ptr;
 
 typedef boost::shared_ptr<boost::asio::ip::udp::socket> socket_ptr;
 
@@ -13,7 +13,7 @@ typedef boost::shared_ptr<std::string>	message_ptr;
 }
 
 
-class udp_session_handler : public fastnet::session_handler
+class udp_session_handler : public fastnetwork::session_handler
 {
 public:
 	udp_session_handler(void);

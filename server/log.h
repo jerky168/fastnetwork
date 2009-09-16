@@ -1,7 +1,7 @@
 #pragma once
 #include <iostream>
 
-namespace fastnet {
+namespace fastnetwork {
 
 #ifdef ENABLE_LOG
 #define LOG(msg) { \

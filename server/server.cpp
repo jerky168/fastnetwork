@@ -49,7 +49,7 @@ int _tmain(int argc, _TCHAR* argv[])
 	{
 		io_service::work work(ios);
 
-		shared_ptr<fastnet::io_acceptor> server = acceptor_factory::new_acceptor( fastnet::UDP, ios );
+		shared_ptr<fastnetwork::io_acceptor> server = acceptor_factory::new_acceptor( fastnetwork::UDP, ios );
 		server->bind( ip::udp::endpoint( ip::address_v4::from_string(host), port) );
 		server->set_handler( session_created );
 		server->start();
