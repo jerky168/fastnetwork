@@ -168,7 +168,7 @@
 	<References>
 		<ProjectReference
 			ReferencedProjectIdentifier="{7A08B416-79AB-4F94-90E3-AFA3CF929F28}"
-			RelativePathToProject=".\fast\fast.vcproj"
+			RelativePathToProject=".\fastnetwork\fastnetwork.vcproj"
 		/>
 	</References>
 	<Files>

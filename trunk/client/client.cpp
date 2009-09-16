@@ -74,7 +74,7 @@ int _tmain(int argc, _TCHAR* argv[])
 		io_service::work work(ios_);
 		run_service( ios_ );
 
-		shared_ptr<fastnet::io_connector> connector( new udp::udp_connector( ios_ ) );
+		shared_ptr<fastnetwork::io_connector> connector( new udp::udp_connector( ios_ ) );
 		connector->set_handler( session_created );
 
 //		connector->connect( ip::udp::endpoint( ip::address_v4::from_string(host), port ) );
