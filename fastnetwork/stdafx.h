@@ -21,7 +21,7 @@
 #include <boost/bind.hpp>
 #include <boost/utility.hpp>
 #include <boost/asio.hpp>
-
+#include <boost/thread.hpp>
 #include <boost/date_time/posix_time/posix_time.hpp>
 
 #define ENABLE_LOG

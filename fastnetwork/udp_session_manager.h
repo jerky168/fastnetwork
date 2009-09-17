@@ -44,7 +44,9 @@ namespace fastnetwork {
 		private:
 			void check_session_idle();
 
+			void find_idle_sessions( session_map &idle_sessions );
 		private:
+			mutex			mutex_;
 			period_timer	timer_;
 			session_map		sessions_;
 		};
