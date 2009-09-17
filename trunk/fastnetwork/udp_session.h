@@ -49,15 +49,18 @@ namespace fastnetwork {
 			}
 
 			void set_attribute( const string & key, any value ) {
+				mutex::scoped_lock	lock(mutex_);
 				attributes_[key] = value;
 			}
 			any get_attribute( const string & key ) {
+				mutex::scoped_lock	lock(mutex_);
 				if( attributes_.find( key ) == attributes_.end() ) {
 					return any();
 				}
 				return attributes_[key];
 			}
 			void remove_attribute( const string & key ) {
+				mutex::scoped_lock	lock(mutex_);
 				attributes_.erase(key);
 			}
 
@@ -89,6 +92,7 @@ namespace fastnetwork {
 			shared_ptr<session_handler>		handler_;
 			shared_ptr<session_filter_chain> filter_chain_;
 
+			mutex							mutex_;
 			std::map<string,any>			attributes_;
 
 			bool							connected_;
