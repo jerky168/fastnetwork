@@ -21,13 +21,14 @@ using namespace std;
 #include <boost/array.hpp>
 #include <boost/function.hpp>
 #include <boost/bind.hpp>
+#include <boost/thread.hpp>
 #include <boost/smart_ptr.hpp>
 using namespace boost;
 
 #include <boost/asio.hpp>
 using namespace boost::asio;
 
-#include <fastnetwork/fastnet.h>
+#include <fastnetwork/fastnetwork.h>
 using namespace fastnetwork;
 
 #define ENABLE_LOG
