@@ -105,7 +105,7 @@
 				Name="VCCLCompilerTool"
 				Optimization="2"
 				EnableIntrinsicFunctions="true"
-				AdditionalIncludeDirectories="\library\boost_1_40_0;\library\tbb22_20090809oss\include"
+				AdditionalIncludeDirectories="\library\boost_1_40_0"
 				PreprocessorDefinitions="WIN32;NDEBUG;_LIB"
 				RuntimeLibrary="0"
 				EnableFunctionLevelLinking="true"
@@ -233,7 +233,7 @@
 				>
 			</File>
 			<File
-				RelativePath=".\fastnet.h"
+				RelativePath=".\fastnetwork.h"
 				>
 			</File>
 			<File

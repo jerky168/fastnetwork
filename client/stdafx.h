@@ -28,5 +28,5 @@ using namespace boost;
 #include <boost/asio.hpp>
 using namespace boost::asio;
 
-#include <fastnetwork/fastnet.h>
+#include <fastnetwork/fastnetwork.h>
 using namespace fastnetwork;
