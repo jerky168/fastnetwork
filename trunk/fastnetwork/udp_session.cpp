@@ -1,22 +1,19 @@
 #include "StdAfx.h"
 #include "udp_session.h"
-#include "default_filter_chain.h"
 #include "io_buffer.h"
+#include "illegal_packet.h"
+
+#include "illegal_packet.h"
 using namespace std;
 using namespace boost;
 using namespace boost::posix_time;
 using namespace fastnetwork;
 using namespace fastnetwork::udp;
 
-udp_session::udp_session( udp_session_manager & manager, shared_ptr<ip::udp::socket> socket, endpoint remote, size_t timeout_sec )
-: manager_(manager)
+udp_session::udp_session( session_manager & manager, shared_ptr<ip::udp::socket> socket, endpoint remote, size_t timeout_sec )
+: abstract_session(manager,socket->local_endpoint(), remote, timeout_sec )
 , socket_(socket)
-, local_endpoint_(socket_->local_endpoint())
-, remote_endpoint_(remote)
 , socket_endpoint_ (remote_endpoint_.address(), remote_endpoint_.port())
-, filter_chain_( new default_filter_chain() )
-, connected_(false)
-, idle_timeout_( seconds(timeout_sec) )
 {
 }
 
@@ -50,11 +47,4 @@ void udp_session::write( any message ) {
 	}
 
 	last_active_time_ = microsec_clock::local_time();
-}
-
-void fastnetwork::udp::udp_session::close()
-{
-	manager_.close_session( shared_from_this() );
-	handler_->session_closed(shared_from_this());
-	connected_ = false;
 }

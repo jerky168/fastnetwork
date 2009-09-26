@@ -2,7 +2,7 @@
 
 #include "io_acceptor.h"
 #include "udp_session.h"
-#include "udp_session_manager.h"
+#include "session_manager.h"
 
 namespace fastnetwork {
 	namespace udp {
@@ -38,16 +38,15 @@ namespace fastnetwork {
 				{
 					socket_->close();
 				}
-				io_service_.stop();
 			}
 
 			void set_handler( boost::function<void( shared_ptr<fastnetwork::io_session> )> handler ) {
 				this->create_handler_ = handler;
 			}
 
-			void close_session( shared_ptr<io_session> session ) {
-				session_manager_.close_session(session);
-			}
+			//void close_session( shared_ptr<io_session> session ) {
+			//	session_manager_.close_session(session);
+			//}
 
 		private:
 			void start_receive()
@@ -68,7 +67,7 @@ namespace fastnetwork {
 			endpoint					local_;
 			ip::udp::endpoint			remote_endpoint_;
 			array<char, 1500>			recv_buffer_;
-			udp_session_manager			session_manager_;
+			session_manager			session_manager_;
 
 			function<void( shared_ptr<fastnetwork::io_session> )>	create_handler_;
 		};

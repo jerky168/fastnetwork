@@ -1,6 +1,6 @@
 #pragma once
 #include "io_connector.h"
-#include "udp_session_manager.h"
+#include "session_manager.h"
 
 namespace fastnetwork {
 	namespace udp {
@@ -45,7 +45,7 @@ namespace fastnetwork {
 			array<char, 1500>			recv_buffer_;
 			endpoint					local_endpoint_;
 			ip::udp::endpoint			remote_socket_endpoint_;
-			udp_session_manager			manager_;
+			session_manager			manager_;
 
 			function<void( shared_ptr<fastnetwork::io_session> )>	create_handler_;
 		};
