@@ -2,15 +2,13 @@
 #include "udp_connector.h"
 #include "udp_session.h"
 #include "io_buffer.h"
-#include "log.h"
 using namespace fastnetwork;
 using namespace fastnetwork::udp;
 using namespace boost::asio;
 
 void fastnetwork::udp::udp_connector::handle_receive( const boost::system::error_code& error, std::size_t bytes_transferred )
 {
-	if (!error || error == boost::asio::error::message_size)
-	{
+	if (!error || error == boost::asio::error::message_size) {
 		shared_ptr<fastnetwork::io_session> session = manager_.new_session( socket_, remote_socket_endpoint_ );
 		shared_ptr<io_buffer> packet( new io_buffer(recv_buffer_.data(), bytes_transferred) );
 
@@ -20,12 +18,9 @@ void fastnetwork::udp::udp_connector::handle_receive( const boost::system::error
 		session->get_handler()->message_received( session, message );
 
 		start_receive();
+	} else {
+		// TODO: error!	LOG( error );
 	}
-	else 
-	{
-		LOG( error );
-	}
-
 }
 
 void fastnetwork::udp::udp_connector::connect( endpoint endpoint )

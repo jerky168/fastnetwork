@@ -19,6 +19,12 @@ namespace fastnetwork {
 			, port_( ue.port() )
 		{
 		}
+		endpoint( const ip::tcp::endpoint & te )
+			: transport_( TCP )
+			, address_( te.address() )
+			, port_( te.port() )
+		{
+		}
 		~endpoint(void){}
 
 	public:
