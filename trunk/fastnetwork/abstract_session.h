@@ -12,7 +12,7 @@ namespace fastnetwork {
 	{
 	public:
 		abstract_session(session_manager & manager, endpoint local, endpoint remote, size_t timeout_sec);
-		virtual ~abstract_session(void);
+		virtual ~abstract_session(void){};
 
 	public:
 		virtual void set_handler( shared_ptr<session_handler> handler ) {
