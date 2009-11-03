@@ -10,7 +10,7 @@ namespace fastnetwork {
 		{
 		public:
 			tcp_session( session_manager & manager, shared_ptr<ip::tcp::socket> socket, endpoint remote, size_t timeout_sec );
-			~tcp_session(void);
+			~tcp_session(void){};
 
 		public:
 			void write( any message );
@@ -19,7 +19,7 @@ namespace fastnetwork {
 				return socket_;
 			}
 
-		private:
+		private:k
 			void handle_write_complete(any message,
 				const boost::system::error_code& /*error*/,
 				std::size_t /*bytes_transferred*/);
