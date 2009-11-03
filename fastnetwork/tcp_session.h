@@ -19,7 +19,7 @@ namespace fastnetwork {
 				return socket_;
 			}
 
-		private:k
+		private:
 			void handle_write_complete(any message,
 				const boost::system::error_code& /*error*/,
 				std::size_t /*bytes_transferred*/);
