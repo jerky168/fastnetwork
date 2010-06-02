@@ -18,6 +18,11 @@ void fastnetwork::tcp::tcp_acceptor::bind( endpoint ep )
 
 void fastnetwork::tcp::tcp_acceptor::start()
 {
+	start_accept();
+}
+
+void fastnetwork::tcp::tcp_acceptor::start_accept()
+{
 	socket_.reset( new ip::tcp::socket(ios_) );
 	acceptor_.async_accept( *socket_.get(), 
 		::boost::bind( &tcp_acceptor::handle_accept, this, placeholders::error )

@@ -17,6 +17,7 @@ namespace fastnetwork {
 				, socket_()
 				, local_endpoint_(fastnetwork::TCP)
 				, remote_endpoint_()
+				, session_manager_()
 				, create_handler_()
 			{
 			}
@@ -24,6 +25,8 @@ namespace fastnetwork {
 
 		public:
 			void start();
+
+			void start_accept();
 			void bind( endpoint ep );
 			void set_handler( function<void( shared_ptr<io_session> )> handler ) {
 				create_handler_ = handler;
@@ -36,15 +39,20 @@ namespace fastnetwork {
 					// TODO: error
 				} else {
 					// TODO: create tcp session
+					shared_ptr<io_session> session = session_manager_.new_session( socket_ );
+
+						sta
 				}
 			}
 
 		private:
 			io_service &				ios_;
 			ip::tcp::acceptor			acceptor_;
-			shared_ptr<ip::tcp::socket>	socket_;
+			shared_ptr<ip::tcp::socket>	socket_;		// to accept
 			endpoint					local_endpoint_;
 			ip::tcp::endpoint			remote_endpoint_;
+
+			session_manager				session_manager_;
 
 			function<void( shared_ptr<io_session> )>	create_handler_;
 		};

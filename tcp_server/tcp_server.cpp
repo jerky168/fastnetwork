@@ -3,73 +3,70 @@
 
 #include "stdafx.h"
 
-ip::tcp::endpoint remote_endpoint_;
-boost::array<char, 1000> buf;
-io_service ios_;
-io_service::work work_(ios_);
-ip::tcp::socket * s_;
+class echo_handler : public session_handler {
+public:
+	virtual void session_created( tcp_session_ptr session ) {
 
-void handle_sent( const system::error_code & error, size_t bytes ) {
-	if ( error )
-	{
-		cout << "error: " << error << endl;
-		return ;
 	}
-
-	cout << "write " << bytes << " bytes." << endl;
-
-	s_->close();
-}
-
-void handle_read( const system::error_code & error, size_t bytes ) {
-	if ( error )
-	{
-		if ( error.value() != boost::asio::error::eof )
-		{
-			cout << "error: " << error << endl;
-			return ;
+	virtual bool session_read( tcp_session_ptr session, ::boost::asio::streambuf & data, const error_code & error, size_t bytes ) {
+		if( error ) {
+			cerr << "read error: " << error << endl;
+			cout << "closing socket @ " << session->remote_endpoint() << endl;
+			session->close();
+			return false;
 		}
+
+		cout << "read " << bytes << " bytes." << endl;
+		if( bytes == 0 ) {
+			return true;
+		}
+//		data.commit(bytes);
+		echo( data, bytes, session);
+		return true;
+	}
+	virtual bool session_written( tcp_session_ptr session, write_buffer_ptr msg, const error_code & error, size_t bytes ) {
+		if( error ) {
+			cerr << "write error: " << error << endl;
+			return false;
+		}
+
+		if( bytes != msg->size() ) {
+			cerr << "write error. date not written complete. total bytes: " << msg->size() << ", but written: " << bytes << endl;
+		}
+		cout << "write: " << bytes << " bytes." << endl;
+		return true;
 	}
 
-	cout << string( buf.data(), bytes ) << endl;
-
-	async_write( *s_, buffer(buf),
-		handle_sent );
-		//::boost::bind( handle_sent, placeholders::error, placeholders::bytes_transferred ) );
-}
-
-void handle_accept( const system::error_code & error ) {
-	if ( error )
-	{
-		cout << "error: " << error << endl;
-		return ;
+protected:
+	void echo( ::boost::asio::streambuf & data, size_t bytes, tcp_session_ptr session ) {
+		write_buffer_ptr msg( new string( buffer_cast<const char*>(data.data()), bytes ) );
+		data.consume(bytes);
+		cout << "<<message: " << *(msg.get()) << endl;
+		cout << "echo..." << endl;
+		session->write( msg );
 	}
-	cout << "accepted client from: " << s_->remote_endpoint() << " @ " << s_->local_endpoint() << endl;
-	async_read( *s_, buffer( buf ),
-		handle_read );
-}
+};
 
-int _tmain(int argc, _TCHAR* argv[])
-{
 
+void run_server2() {
+	io_service ios_;
+	io_service::work work_(ios_);
 	boost::thread t( BOOST_BIND( &io_service::run, &ios_ ) );
 
+	echo_handler echo;
+	tcp_session_acceptor acceptor(ios_, echo);
+
 	ip::tcp::endpoint ep = ip::tcp::endpoint( ip::address::from_string("127.1.1.1"), 10080 );
-	ip::tcp::acceptor a_(ios_ );
-	a_.open( ip::tcp::v4() );
-	a_.bind( ep );
-	a_.listen(100);
-
-	cout << "bind at: " << a_.local_endpoint() << endl;
-
-	s_ = new ip::tcp::socket(ios_);
-	a_.async_accept( *s_, handle_accept );
+	acceptor.bind(ep);
 
 	cin.get();
-
-	delete s_;
 	ios_.stop();
+
 	t.join();
+}
+int _tmain(int argc, _TCHAR* argv[])
+{
+	run_server2();
 
 	return 0;
 }

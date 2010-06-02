@@ -10,7 +10,7 @@
 #include <stdio.h>
 #include <tchar.h>
 
-#define WIN32_LEAN_AND_MEAN
+
 
 // TODO: reference additional headers your program requires here
 #include <string>
