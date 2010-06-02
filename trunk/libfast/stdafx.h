@@ -7,10 +7,9 @@
 
 #include "targetver.h"
 
-#include <stdio.h>
-#include <tchar.h>
+#define WIN32_LEAN_AND_MEAN             // Exclude rarely-used stuff from Windows headers
 
-#define WIN32_LEAN_AND_MEAN
+
 
 // TODO: reference additional headers your program requires here
 #include <string>
@@ -31,6 +30,3 @@ using namespace std;
 using namespace boost;
 using namespace boost::asio;
 using namespace boost::system;
-
-#include <libfast/fastnetwork.h>
-using namespace fastnetwork;

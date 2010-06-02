@@ -67,7 +67,7 @@ namespace fastnetwork {
 			endpoint					local_;
 			ip::udp::endpoint			remote_endpoint_;
 			array<char, 1500>			recv_buffer_;
-			session_manager			session_manager_;
+			session_manager				session_manager_;
 
 			function<void( shared_ptr<fastnetwork::io_session> )>	create_handler_;
 		};

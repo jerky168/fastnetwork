@@ -1,0 +1,103 @@
+// tcp_client.cpp : Defines the entry point for the console application.
+//
+
+#include "stdafx.h"
+
+io_service service;
+io_service::work work(service);
+ip::tcp::socket client(service);
+::boost::asio::streambuf read_buffer;
+
+void start_read();
+
+void handle_read( const error_code & error, size_t bytes ) {
+	if( error ) {
+		cerr << "read error: " << error << endl;
+	}
+
+	if( bytes > 0 ) {
+		string msg( buffer_cast<const char*>( read_buffer.data() ), bytes );
+		read_buffer.consume(bytes);
+		cout << "<<message: " << msg << endl;
+	}
+
+	start_read();
+}
+
+void start_read() {
+//	::boost::function<void(const error_code & error, size_t bytes)> read = ::boost::bind( handle_read, placeholders::error, placeholders::bytes_transferred );
+	//client.async_read_some(read_buffer, 
+	//	::boost::bind( &handle_read, _1, _2 )
+	//	);
+}
+
+void handle_connected( const error_code & error ) {
+	if( error ) {
+		cerr << "connect error: " << error << endl;
+	}
+
+	start_read();
+}
+
+void handle_sent( write_buffer_ptr msg, const error_code & error, size_t bytes ) {
+	if( error ) {
+		cerr << "send error: " << error << endl;
+	}
+	cout << "sent " << bytes << " bytes." << endl;
+}
+
+void send_data( write_buffer_ptr msg )
+{
+	if( ! client.is_open() ) {
+		cerr << "connection not open yet." << endl;
+	}
+
+	cout << ">>message: " << *(msg.get() ) << endl;
+	//client.async_send( buffer(*(msg.get()) ), 
+	//	::boost::bind( handle_sent, msg, placeholders::error, placeholders::bytes_transferred ) );
+}
+
+void start_read_console() {
+	while( true )
+	{
+		write_buffer_ptr msg( new string() );
+		string & read = *(msg.get());
+		cin >> read;
+		if( read == "quit" )
+		{
+			break;
+		}
+
+		//service.post(
+		//	::boost::bind( send_data, msg )
+		//	);
+	}
+}
+
+void run_client() {
+	boost::thread t( BOOST_BIND( &io_service::run, &service ) );
+	ip::tcp::endpoint ep = ip::tcp::endpoint( ip::address::from_string("127.1.1.1"), 10080 );
+	client.async_connect(ep, handle_connected );
+
+	start_read_console();
+
+	service.stop();
+}
+int f(int a, int b)
+{
+    return a + b;
+}
+
+int _tmain(int argc, _TCHAR* argv[])
+{
+//	run_client();
+	int x = 1;
+	int y = 2;
+
+	::std::bind2nd(std::ptr_fun(f), 5)(x);
+
+	::boost::bind(f, _2, _1)(x, y);
+
+	return 0;
+}
+

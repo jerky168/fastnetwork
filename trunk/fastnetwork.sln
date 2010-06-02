@@ -13,6 +13,10 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "fastnetwork", "fastnetwork\
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "tcp_server", "tcp_server\tcp_server.vcproj", "{BDE95C0E-5FEE-4C2D-AA52-4BA75331CC14}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "libfast", "libfast\libfast.vcproj", "{62BCB993-B244-42AC-A3DA-8B5A8A0F1367}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "tcp_client", "tcp_client\tcp_client.vcproj", "{381FF604-BCDA-48DC-87FF-7C656DE88BF3}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Win32 = Debug|Win32
@@ -43,6 +47,14 @@ Global
 		{BDE95C0E-5FEE-4C2D-AA52-4BA75331CC14}.Debug|Win32.Build.0 = Debug|Win32
 		{BDE95C0E-5FEE-4C2D-AA52-4BA75331CC14}.Release|Win32.ActiveCfg = Release|Win32
 		{BDE95C0E-5FEE-4C2D-AA52-4BA75331CC14}.Release|Win32.Build.0 = Release|Win32
+		{62BCB993-B244-42AC-A3DA-8B5A8A0F1367}.Debug|Win32.ActiveCfg = Debug|Win32
+		{62BCB993-B244-42AC-A3DA-8B5A8A0F1367}.Debug|Win32.Build.0 = Debug|Win32
+		{62BCB993-B244-42AC-A3DA-8B5A8A0F1367}.Release|Win32.ActiveCfg = Release|Win32
+		{62BCB993-B244-42AC-A3DA-8B5A8A0F1367}.Release|Win32.Build.0 = Release|Win32
+		{381FF604-BCDA-48DC-87FF-7C656DE88BF3}.Debug|Win32.ActiveCfg = Debug|Win32
+		{381FF604-BCDA-48DC-87FF-7C656DE88BF3}.Debug|Win32.Build.0 = Debug|Win32
+		{381FF604-BCDA-48DC-87FF-7C656DE88BF3}.Release|Win32.ActiveCfg = Release|Win32
+		{381FF604-BCDA-48DC-87FF-7C656DE88BF3}.Release|Win32.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

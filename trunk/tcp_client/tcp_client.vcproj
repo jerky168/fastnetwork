@@ -2,9 +2,9 @@
 <VisualStudioProject
 	ProjectType="Visual C++"
 	Version="9.00"
-	Name="tcp_server"
-	ProjectGUID="{BDE95C0E-5FEE-4C2D-AA52-4BA75331CC14}"
-	RootNamespace="tcp_server"
+	Name="tcp_client"
+	ProjectGUID="{381FF604-BCDA-48DC-87FF-7C656DE88BF3}"
+	RootNamespace="tcp_client"
 	Keyword="Win32Proj"
 	TargetFrameworkVersion="196613"
 	>
@@ -41,13 +41,13 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories=".."
+				AdditionalIncludeDirectories="../"
 				PreprocessorDefinitions="WIN32;_DEBUG;_CONSOLE"
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="3"
 				UsePrecompiledHeader="2"
-				WarningLevel="4"
+				WarningLevel="3"
 				DebugInformationFormat="4"
 			/>
 			<Tool
@@ -62,7 +62,6 @@
 			<Tool
 				Name="VCLinkerTool"
 				LinkIncremental="2"
-				AdditionalLibraryDirectories=""
 				GenerateDebugInformation="true"
 				SubSystem="1"
 				TargetMachine="1"
@@ -120,7 +119,7 @@
 				RuntimeLibrary="2"
 				EnableFunctionLevelLinking="true"
 				UsePrecompiledHeader="2"
-				WarningLevel="4"
+				WarningLevel="3"
 				DebugInformationFormat="3"
 			/>
 			<Tool
@@ -197,7 +196,7 @@
 				</FileConfiguration>
 			</File>
 			<File
-				RelativePath=".\tcp_server.cpp"
+				RelativePath=".\tcp_client.cpp"
 				>
 			</File>
 		</Filter>
