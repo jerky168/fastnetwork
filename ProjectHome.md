@@ -1,0 +1,2 @@
+> Fastnet is a network library for C++ programming. It's based on Boost.Asio, a great network library from boost. Asio do some amazing work to simplify network application development. Fastnet is a high level abstraction of network applications, much like Apache Mina, Cindy.
+> With Fastnet, developers just need to write the network protocol codec and focus on business logic, pay little attention to network management.
